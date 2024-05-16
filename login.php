@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,6 +68,14 @@
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-
+<script>
+    $.ajax({
+        url: 'error.php',
+        type: 'POST',
+        success: function(data){
+            $('html').html(data)
+        }
+    })
+</script>
 </body>
 </html>
