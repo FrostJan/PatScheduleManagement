@@ -45,7 +45,7 @@
                   <th></th>
                 </thead>
                 <tbody>
-                  <?php $sql = "SELECT * FROM request INNER JOIN users ON request.users_id=users.id WHERE request.status = 'Approved'";
+                  <?php $sql = "SELECT *,request.id AS request_id FROM request INNER JOIN users ON request.users_id=users.id WHERE request.status = 'Approved'";
                   $stmt = $this->conn()->query($sql);
                   while ($row = $stmt->fetch()) { ?>
                     <tr>
@@ -64,9 +64,9 @@
                         <p><b>Contact:</b> <?php echo $row['contactnumber'] ?></p>
                       </td>
                       <td>
-                        <a class="btn btn-success btn-sm" href="log.php?id=<?php echo $row['id'] ?>" style="padding: 5px 5px;color: #000;background-color: #c6dc41;border: unset;"><b>Details</b></a>
+                        <a class="btn btn-success btn-sm" href="log.php?id=<?php echo $row['request_id'] ?>" style="padding: 5px 5px;color: #000;background-color: #c6dc41;border: unset;"><b>Details</b></a>
                         <button class="btn btn-success btn-sm createevent" style="padding: 5px 5px;color: #000;border: unset;"
-                        data-request_id="<?php echo $row['id'] ?>"
+                        data-request_id="<?php echo $row['request_id'] ?>"
                         data-users_id="<?php echo $row['users_id'] ?>"
                         data-department="<?php echo $row['department'] ?>"
                         
