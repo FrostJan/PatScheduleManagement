@@ -13,11 +13,13 @@
         <li><a href="document_history.php"><i class="fas fa-book"></i> <span>DOCUMENT HISTORY</span></a></li>
         <li><a href="log.php"><i class="fas fa-chart-bar"></i> <span>LOG</span></a></li>
         <li><a href="summary.php"><i class="fas fa-bar-chart"></i> <span>Summary Statistics</span></a></li>
+        <li><a href="activityorpurpose.php"><i class="fas fa-list"></i> <span>Activity Purpose</span></a></li>
       <?php endif; ?>
 
       <?php if($_SESSION['type'] == 1): ?>
         <li><a href="approval.php"><i class="fas fa-check-circle"></i> <span>APPROVAL</span></a></li>
         <li><a href="summary.php"><i class="fas fa-bar-chart"></i> <span>Summary Statistics</span></a></li>
+        <li><a href="facility_form.php"><i class="fas fa-book"></i> <span>FACILITY FORM</span></a></li>
       <?php endif; ?>
 
       <?php if($_SESSION['type'] == 2): ?>

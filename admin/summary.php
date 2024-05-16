@@ -9,6 +9,17 @@
 <!DOCTYPE html>
 <html>
 <head><?php include 'head.php'; ?></head>
+<style>
+  .month-btn{
+    padding: 15px 30px;
+    margin: 20px;
+  }
+
+  #piechart{
+    height: 505px !important;
+  }
+
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -33,25 +44,98 @@
 
     <!-- Main content -->
     <section class="content">
-            <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <div class="card text-center">
-                <h2>Approve</h2>
-                <canvas id="approved" width="600" height="120"></canvas>
+      <div class="row">
+        <div class="col-md-6 col-xs-12">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-header with-border">
+                  <div class="card text-center">
+                    <div>
+                      <h2>Approved / Declined</h2>
+                      <select class="btn" id="approvedordeclinedmonth" style="border: 1px solid rgba(0, 0, 0, 0.3);">
+                        <option value="">Select Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                      </select>
+                    </div>
+                    <canvas id="approveddeclined" width="600" height="320"></canvas>
+                  </div>
+                </div>
               </div>
-              <br>
-              <div class="card text-center">
-                <h2>Declined</h2>
-                <canvas id="declined" width="600" height="120"></canvas>
+            </div>
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-header with-border">
+                  <h2 class="text-center">Monthly Event</h2>
+                  <div class="card text-center">
+                    <a href="summary_table2.php?month=1" class="btn btn-success month-btn">January</a>
+                    <a href="summary_table2.php?month=2" class="btn btn-success month-btn">February</a>
+                    <a href="summary_table2.php?month=3" class="btn btn-success month-btn">March</a>
+                    <a href="summary_table2.php?month=4" class="btn btn-success month-btn">April</a>
+                    <a href="summary_table2.php?month=5" class="btn btn-success month-btn">May</a>
+                    <a href="summary_table2.php?month=6" class="btn btn-success month-btn">June</a>
+                    <a href="summary_table2.php?month=7" class="btn btn-success month-btn">July</a>
+                    <a href="summary_table2.php?month=8" class="btn btn-success month-btn">August</a>
+                    <a href="summary_table2.php?month=9" class="btn btn-success month-btn">September</a>
+                    <a href="summary_table2.php?month=10" class="btn btn-success month-btn">October</a>
+                    <a href="summary_table2.php?month=11" class="btn btn-success month-btn">November</a>
+                    <a href="summary_table2.php?month=12" class="btn btn-success month-btn">December</a>
+                  </div>
+                  <br>
+                </div>
               </div>
-              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="box">
+                <div class="box-header with-border">
+                  <div class="card text-center">
+                    <div>
+                      <h2>Acitivity Purpose</h2>
+                    </div>
+                    <div style="text-align: center;justify-content: center;display: flex;">
+                      <canvas id="piechart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12">
+              <div class="box">
+                <div class="box-header with-border">
+                  <div class="card text-center">
+                    <div>
+                      <h2>Services And Classification of Activity</h2>
+                      <select class="btn" id="selectservicesandclassification" style="border: 1px solid rgba(0, 0, 0, 0.3);">
+                        <option value="0">Select</option>
+                        <option value="1">Services</option>
+                        <option value="2">Classification of Activity</option>
+                      </select>
+                    </div>
+                    <canvas id="servicesandclassification" height="90"></canvas>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
   </div>
 
 
@@ -121,78 +205,40 @@ $(function(){
 </script>
 
 <!-- Active Script -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
    <?php
-    $sql = "SELECT COUNT(id) AS dep1 FROM request WHERE status = 'Declined' AND department = 'College of Arts and Sciences'";
+    $sql = "SELECT COUNT(id) AS declined FROM request WHERE status = 'Declined'";
     $stmt = $this->conn()->query($sql);
     $row = $stmt->fetch();
-    $dep1 = $row['dep1'];
+    $declined = $row['declined'];
 
-    $sql = "SELECT COUNT(id) AS dep2 FROM request WHERE status = 'Declined' AND department = 'College of Business and Accountancy'";
+    $sql = "SELECT COUNT(id) AS approved FROM request WHERE status = 'Approved'";
     $stmt = $this->conn()->query($sql);
     $row = $stmt->fetch();
-    $dep2 = $row['dep2'];
+    $approved = $row['approved'];
 
-    $sql = "SELECT COUNT(id) AS dep3 FROM request WHERE status = 'Declined' AND department = 'College of Computer Studies'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep3 = $row['dep3'];
-
-    $sql = "SELECT COUNT(id) AS dep4 FROM request WHERE status = 'Declined' AND department = 'College of Criminology'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep4 = $row['dep4'];
-
-    $sql = "SELECT COUNT(id) AS dep5 FROM request WHERE status = 'Declined' AND department = 'College of Education'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep5 = $row['dep5'];
-
-    $sql = "SELECT COUNT(id) AS dep6 FROM request WHERE status = 'Declined' AND department = 'College of Engineering and Aviation'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep6 = $row['dep6'];
-
-    $sql = "SELECT COUNT(id) AS dep7 FROM request WHERE status = 'Declined' AND department = 'College of International Hospitality Management'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep7 = $row['dep7'];
-
-    $sql = "SELECT COUNT(id) AS dep8 FROM request WHERE status = 'Declined' AND department = 'College of Maritime'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep8 = $row['dep8'];
-
-    $sql = "SELECT COUNT(id) AS dep9 FROM request WHERE status = 'Declined' AND department = 'Senior High School'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep9 = $row['dep9'];
-
-    $sql = "SELECT COUNT(id) AS dep10 FROM request WHERE status = 'Declined' AND department = 'Basic Education'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep10 = $row['dep10'];
 ?>
 
 
-
 <script>
-  
-let declined = document.getElementById('declined').getContext('2d');
 
-var MonthlyChart = new Chart(declined, {
+let approveddeclined = document.getElementById('approveddeclined').getContext('2d');
+
+var MonthlyChart = new Chart(approveddeclined, {
 
     type: 'bar',
 
     data: {
 
-        labels: ['College of Arts and Sciences','College of Business and Accountancy','College of Computer Studies','College of Criminology','College of Education','College of Engineering and Aviation','College of International Hospitality Management','College of Maritime','Senior High School','Basic Education'],
+        labels: ['Approved','Declined'],
 
         datasets: [
             {
-                data: [<?php echo $dep1.",".$dep2.",".$dep3.",".$dep4.",".$dep5.",".$dep6.",".$dep7.",".$dep8.",".$dep9.",".$dep10; ?>],
+                data: [<?php echo $approved.",".$declined; ?>],
+                backgroundColor: ['#4CAF50', '#F44336']
             },
 
 
@@ -200,108 +246,294 @@ var MonthlyChart = new Chart(declined, {
 
     },
     options: {
-        plugins: {
-            legend: false 
+        scales: {
+            y: {
+                ticks: {
+                    stepSize: 1,
+                },
+            },
         },
-    }
+        plugins: {
+            legend: {
+                display: false
+            },
+
+            datalabels: {
+                formatter: (value, context) => {
+                    return Math.round(value).toLocaleString(); // Convert to whole numbers and use locale string for formatting
+                },
+                color: '#fff',
+                backgroundColor: (context) => {
+                    return context.dataset.backgroundColor[context.dataIndex];
+                },
+                borderRadius: 4,
+                font: {
+                    weight: 'bold'
+                },
+                padding: 6
+            },
+        },
+
+           
+        onClick: function(event, elements) {
+          var approvedordeclinedmonth = $('#approvedordeclinedmonth').val()
+                if (elements.length > 0) {
+                    var index = elements[0].index;
+                    var label = this.data.labels[index];
+                    if (label === 'Approved') {
+                        window.location.href = 'summary_table.php?status=Approved&month='+approvedordeclinedmonth;
+                    } else if (label === 'Declined') {
+                        window.location.href = 'summary_table.php?status=Declined&month='+approvedordeclinedmonth;
+                    }
+                }
+            },
+
+    },
+    plugins: [ChartDataLabels] 
 });
 
-
-
 </script>
-
-
-
 
 
 
 <?php
-    $sql = "SELECT COUNT(id) AS dep1 FROM request WHERE status = 'Approved' AND department = 'College of Arts and Sciences'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep11 = $row['dep1'];
+    // Array to store the counts of each activity purpose
+    $activityCounts = [];
+    $totalActivities = 0;
+    $urls = [];
 
-    $sql = "SELECT COUNT(id) AS dep2 FROM request WHERE status = 'Approved' AND department = 'College of Business and Accountancy'";
+    // Get the list of all activity purposes
+    $sql = "SELECT name FROM activitypurpose";
     $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep22 = $row['dep2'];
+    while($row = $stmt->fetch()){
+        $activitypurpose = $row['name'];
 
-    $sql = "SELECT COUNT(id) AS dep3 FROM request WHERE status = 'Approved' AND department = 'College of Computer Studies'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep33 = $row['dep3'];
+        // Get the count of each activity purpose
+        $sql2 = "SELECT COUNT(id) AS total FROM request WHERE activityorpurpose = '".$activitypurpose."'";
+        $stmt2 = $this->conn()->query($sql2);
+        $row2 = $stmt2->fetch();
 
-    $sql = "SELECT COUNT(id) AS dep4 FROM request WHERE status = 'Approved' AND department = 'College of Criminology'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep44 = $row['dep4'];
+        // Store the count in the array
+        $activityCounts[$activitypurpose] = $row2['total'];
+        // Add to the total count of all activities
+        $totalActivities += $row2['total'];
 
-    $sql = "SELECT COUNT(id) AS dep5 FROM request WHERE status = 'Approved' AND department = 'College of Education'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep55 = $row['dep5'];
+        // Construct the URL for each activity purpose
+        $urls[$activitypurpose] = 'summary_table3.php?activitypurpose=' . urlencode($activitypurpose);
+    }
 
-    $sql = "SELECT COUNT(id) AS dep6 FROM request WHERE status = 'Approved' AND department = 'College of Engineering and Aviation'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep66 = $row['dep6'];
-
-    $sql = "SELECT COUNT(id) AS dep7 FROM request WHERE status = 'Approved' AND department = 'College of International Hospitality Management'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep77 = $row['dep7'];
-
-    $sql = "SELECT COUNT(id) AS dep8 FROM request WHERE status = 'Approved' AND department = 'College of Maritime'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep88 = $row['dep8'];
-
-    $sql = "SELECT COUNT(id) AS dep9 FROM request WHERE status = 'Approved' AND department = 'Senior High School'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep99 = $row['dep9'];
-
-    $sql = "SELECT COUNT(id) AS dep10 FROM request WHERE status = 'Approved' AND department = 'Basic Education'";
-    $stmt = $this->conn()->query($sql);
-    $row = $stmt->fetch();
-    $dep1010 = $row['dep10'];
+    // Calculate percentages
+    $percentages = [];
+    foreach($activityCounts as $activity => $count) {
+        $percentages[$activity] = ($count / $totalActivities) * 100;
+    }
 ?>
 
 
 
 <script>
-  
-let approved = document.getElementById('approved').getContext('2d');
+let activityData = {
+    labels: <?php echo json_encode(array_keys($percentages)); ?>,
+    datasets: [{
+        data: <?php echo json_encode(array_values($percentages)); ?>,
+        backgroundColor: ['#4CAF50', '#F44336', '#FFC107', '#2196F3', '#9C27B0', '#FF9800'] // Add more colors if necessary
+    }]
+};
 
-var MonthlyChart = new Chart(approved, {
+// Define the URLs for each segment
+let urls = <?php echo json_encode($urls); ?>;
 
-    type: 'bar',
+let activityChartCtx = document.getElementById('piechart').getContext('2d');
 
-    data: {
-
-        labels: ['College of Arts and Sciences','College of Business and Accountancy','College of Computer Studies','College of Criminology','College of Education','College of Engineering and Aviation','College of International Hospitality Management','College of Maritime','Senior High School','Basic Education'],
-
-        datasets: [
-            {
-                data: [<?php echo $dep11.",".$dep22.",".$dep33.",".$dep44.",".$dep55.",".$dep66.",".$dep77.",".$dep88.",".$dep99.",".$dep1010; ?>],
-            },
-
-
-        ]
-
-    },
+var activityChart = new Chart(activityChartCtx, {
+    type: 'pie',
+    data: activityData,
     options: {
         plugins: {
-            legend: false 
+            legend: {
+                display: true
+            },
+            datalabels: {
+                formatter: (value, context) => {
+                    return value.toFixed() + '%'; // Display percentage with two decimal places
+                },
+                color: '#fff',
+                backgroundColor: (context) => {
+                    return context.dataset.backgroundColor[context.dataIndex];
+                },
+                borderRadius: 4,
+                font: {
+                    weight: 'bold'
+                },
+                padding: 6
+            }
         },
-    }
+        onClick: (event, elements) => {
+            if (elements.length > 0) {
+                // Get the index of the clicked segment
+                let index = elements[0].index;
+                // Get the label of the clicked segment
+                let label = activityChart.data.labels[index];
+                // Get the URL for the clicked segment
+                let url = urls[label];
+                // Redirect to the URL
+                window.location.href = url;
+            }
+        }
+    },
+    plugins: [ChartDataLabels] // Register the data labels plugin
 });
-
-
-
 </script>
 
+
+
+
+  <?php
+    // First data line chart
+    $sql = "SELECT COUNT(pat) AS totalpat FROM request WHERE pat = 'yes'";
+    $stmt = $this->conn()->query($sql);
+    $row = $stmt->fetch();
+    $totalpat = $row['totalpat'];
+
+    $sql = "SELECT COUNT(emcroom) AS totalemcroom FROM request WHERE emcroom = 'yes'";
+    $stmt = $this->conn()->query($sql);
+    $row = $stmt->fetch();
+    $totalemcroom = $row['totalemcroom'];
+
+    $sql = "SELECT COUNT(tvroom) AS totaltvroom FROM request WHERE tvroom = 'yes'";
+    $stmt = $this->conn()->query($sql);
+    $row = $stmt->fetch();
+    $totaltvroom = $row['totaltvroom'];
+
+
+
+    // Second data line chart
+    $sql = "SELECT COUNT(institutional) AS totalinstitutional FROM request WHERE institutional = 'yes'";
+    $stmt = $this->conn()->query($sql);
+    $row = $stmt->fetch();
+    $totalinstitutional = $row['totalinstitutional'];
+
+    $sql = "SELECT COUNT(cocurricular) AS totalcocurricular FROM request WHERE cocurricular = 'yes'";
+    $stmt = $this->conn()->query($sql);
+    $row = $stmt->fetch();
+    $totalcocurricular = $row['totalcocurricular'];
+
+    $sql = "SELECT COUNT(curricular) AS totalcurricular FROM request WHERE curricular = 'yes'";
+    $stmt = $this->conn()->query($sql);
+    $row = $stmt->fetch();
+    $totalcurricular = $row['totalcurricular'];
+
+    $sql = "SELECT COUNT(extracurricular) AS totalextracurricular FROM request WHERE extracurricular = 'yes'";
+    $stmt = $this->conn()->query($sql);
+    $row = $stmt->fetch();
+    $totalextracurricular = $row['totalextracurricular'];
+
+    $sql = "SELECT COUNT(outsidegroup) AS totaloutsidegroup FROM request WHERE outsidegroup = 'yes'";
+    $stmt = $this->conn()->query($sql);
+    $row = $stmt->fetch();
+    $totaloutsidegroup = $row['totaloutsidegroup'];
+  ?>
+<script>
+    let servicesandclassification = document.getElementById('servicesandclassification').getContext('2d');
+
+    var staticData = {
+        labels: ['Institutional','Co-Curricular','Curricular','Extra-Curricular','Outside Group'],
+        datasets: [
+            {
+                label: 'Static Data',
+                data: [<?php echo $totalinstitutional . "," . $totalcocurricular . "," . $totalcurricular . "," . $totalextracurricular . "," . $totaloutsidegroup; ?>],
+                borderColor: '#4CAF50',
+                backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                fill: false
+            }
+        ]
+    };
+
+    var dynamicData = {
+        labels: ['Pat', 'EMC Room', 'TV Room'],
+        datasets: [
+            {
+                label: 'Dynamic Data',
+                data: [<?php echo $totalpat . "," . $totalemcroom . "," . $totaltvroom; ?>],
+                borderColor: '#F44336',
+                backgroundColor: 'rgba(244, 67, 54, 0.2)',
+                fill: false
+            }
+        ]
+    };
+
+    var MonthlyChart2 = new Chart(servicesandclassification, {
+        type: 'line',
+        data: staticData,
+        options: {
+            scales: {
+                y: {
+                    ticks: {
+                        stepSize: 1,
+                    },
+                },
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                datalabels: {
+                    formatter: (value, context) => {
+                        return Math.round(value).toLocaleString();
+                    },
+                    color: '#fff',
+                    backgroundColor: (context) => {
+                        return context.dataset.backgroundColor;
+                    },
+                    borderRadius: 4,
+                    font: {
+                        weight: 'bold'
+                    },
+                    padding: 6
+                },
+            },
+onClick: (event, elements) => {
+                if (elements.length > 0) {
+                    var index = elements[0].index;
+                    var label = MonthlyChart2.data.labels[index];
+                    if (label === 'Institutional') {
+                        window.location.href = 'summary_table4.php?label=institutional';
+                    } else if (label === 'Co-Curricular') {
+                        window.location.href = 'summary_table4.php?label=cocurricular';
+                    } else if (label === 'Curricular') {
+                        window.location.href = 'summary_table4.php?label=curricular';
+                    } else if (label === 'Extra-Curricular') {
+                        window.location.href = 'summary_table4.php?label=extracurricular';
+                    } else if (label === 'Outside Group') {
+                        window.location.href = 'summary_table4.php?label=outsidegroup';
+                    } else if (label === 'Pat') {
+                        window.location.href = 'summary_table4.php?label=pat';
+                    } else if (label === 'EMC Room') {
+                        window.location.href = 'summary_table4.php?label=emcroom';
+                    } else if (label === 'TV Room') {
+                        window.location.href = 'summary_table4.php?label=tvroom';
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+
+
+    document.getElementById('selectservicesandclassification').addEventListener('change', function() {
+        var selectedValue = this.value;
+        if (selectedValue == 1) {
+            MonthlyChart2.data = staticData;
+        } else if (selectedValue == 2) {
+            MonthlyChart2.data = dynamicData;
+        }
+        MonthlyChart2.update();
+    });
+
+</script>
 
 </body>
 </html>
 <?php  } } $data = new data();  $data->managedata(); ?>
+
+

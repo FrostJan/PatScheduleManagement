@@ -61,7 +61,15 @@
                     <div class="form-group">
                       <label for="project_list_id" class="col-sm-4">Activity/Purpose: </label>
                       <div class="col-sm-8">
-                        <input class="form-control" id="" name="activityorpurpose" required>
+                        <select class="form-control" id="" name="activityorpurpose" style="height: 33px;" required>
+                          <option value="">Select</option>
+                          <?php
+                          $sql = "SELECT * FROM activitypurpose";
+                          $stmt = $this->conn()->query($sql);
+                          while($row = $stmt->fetch()){ ?>
+                            <option value="<?php echo $row['name'] ?>"><?php echo $row['name'] ?></option>
+                          <?php } ?>
+                        </select>
                       </div>
                     </div>
                     <div class="form-group">
@@ -186,8 +194,8 @@
                             <div style="text-align: left;"><label>Noted By:</label></div>
                             <div><label>Oliver Junio</label></div>
                             <div><label>Department Head</label></div>
-                            <div><label>Status: <label class="text-success">Signed</label></label></div>
-                            <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div>
+                            <!-- <div><label>Status: <label class="text-success">Signed</label></label></div> -->
+                            <!-- <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div> -->
                           </div>
                         </div>
                       </div>
@@ -199,8 +207,8 @@
                             <div style="text-align: center;margin-top: 7px;">
                               <div><label>Mr. Ruel B. Rilloraza</label></div>
                               <div><span>Head of Audiovisual Facilities</span></div>
-                              <div><label>Status: <label class="text-success">Signed</label></label></div>
-                              <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div>
+                              <!-- <div><label>Status: <label class="text-success">Signed</label></label></div> -->
+                              <!-- <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div> -->
                             </div>
                           </div>
                         </div>
@@ -216,17 +224,18 @@
                             <div><span>APPROVED BY:</span></div>
                             <div><label style="margin-bottom: unset;">Dr. Ferdinand C. Somido</label></div>
                             <div><span>Executive School director</span></div>
-                            <div><label style="margin-bottom: unset;">Status: <label class="text-success">Signed</label></label></div>
-                            <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div>
+                            <!-- <div><label style="margin-bottom: unset;">Status: <label class="text-success">Signed</label></label></div> -->
+                            <!-- <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div> -->
                           </div>
                         </div>
                       </div>
+                      <br><br><br><br>
                       <div class="col-xs-12">
                         <div class="form-group" style="max-width: 800px;margin: auto;">
-                          <div style="background-color: #c9c9c933;border: 2px solid black;padding: 5px;border-top: unset;">
+                          <div style="background-color: #c9c9c933;border: 2px solid black;padding: 5px;">
                             <div><span>Once everything is signed, provide a copy of accomplishment form to the following:</span></div>
                             <div style="text-align: center;margin-top: 7px;">
-                              <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div>
+                              <!-- <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div> -->
                               <div><label style="margin-bottom: unset;">Audiovisual Facilities Office</label></div>
                               <div><label style="margin-bottom: unset;">Audiovisual (MU)</label></div>
                             </div>
@@ -248,10 +257,7 @@
                     <div><button type="submit" name="add" class="btn btn-flat" style="width: 120px;background-color: #363636;color: #fff;font-weight: bold;">SAVE</button></div>
 
                     <br>
-                    <div>
-                      <label style="color: #363636;font-weight: bold;">Reservation Duration: 72hrs</label>
-                    </div>
-                    <div><button class="btn btn-flat" style="width: 120px;background-color: #363636;color: #fff;font-weight: bold;">DELETE FORM</button></div>
+                    <div><a href="facility_form.php" class="btn btn-flat" style="width: 120px;background-color: #363636;color: #fff;font-weight: bold;">DELETE FORM</a></div>
                   </div>
                 </div>
               </form>

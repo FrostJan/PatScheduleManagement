@@ -45,11 +45,12 @@
                   <th></th>
                 </thead>
                 <tbody>
-                  <?php $sql = "SELECT * FROM request WHERE status = 'Approved'";
+                  <?php $sql = "SELECT * FROM request INNER JOIN users ON request.users_id=users.id WHERE request.status = 'Approved'";
                   $stmt = $this->conn()->query($sql);
                   while ($row = $stmt->fetch()) { ?>
                     <tr>
                       <td>
+                        <p><b>Name:</b> <?php echo $row['firstname'] ?> <?php echo $row['lastname'] ?></p>
                         <p><b>Event:</b> <?php echo $row['department'] ?></p>
                         <p><b>File:</b> <a href="../file/<?php echo $row['file'] ?>"><?php echo $row['file'] ?></a></p>
                         <p><b>Status:</b> <?php echo $row['status'] ?></p>
@@ -67,6 +68,7 @@
                         <button class="btn btn-success btn-sm createevent" style="padding: 5px 5px;color: #000;border: unset;"
                         data-request_id="<?php echo $row['id'] ?>"
                         data-users_id="<?php echo $row['users_id'] ?>"
+                        data-department="<?php echo $row['department'] ?>"
                         
 
                         ><b>Create</b></button>
@@ -358,9 +360,12 @@ $(function(){
     $('#event_entry_modal').modal('show');
     request_id = $(this).data('request_id')
     users_id = $(this).data('users_id')
+    department = $(this).data('department')
+    
 
     $('#request_id').val(request_id)
     $('#users_id').val(users_id)
+    $('#event_name').val(department)
   })
 </script>
 </body>

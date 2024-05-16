@@ -87,7 +87,7 @@
           <div class="col-xs-12">
             <div class="box">
               <div class="box-header with-border">
-                <h3>Details</h3>
+                <h3>Document Details</h3>
               </div>
               <div class="box-body">
                 <form class="form-horizontal" method="POST" action="../controller/facility_formController.php" enctype="multipart/form-data">
@@ -227,8 +227,8 @@
                               <div style="text-align: left;"><label>Noted By:</label></div>
                               <div><label>Oliver Junio</label></div>
                               <div><label>Department Head</label></div>
-                              <div><label>Status: <label class="text-success">Signed</label></label></div>
-                              <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div>
+                              <!-- <div><label>Status: <label class="text-success">Signed</label></label></div> -->
+                              <!-- <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div> -->
                             </div>
                           </div>
                         </div>
@@ -240,8 +240,8 @@
                               <div style="text-align: center;margin-top: 7px;">
                                 <div><label>Mr. Ruel B. Rilloraza</label></div>
                                 <div><span>Head of Audiovisual Facilities</span></div>
-                                <div><label>Status: <label class="text-success">Signed</label></label></div>
-                                <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div>
+                                <!-- <div><label>Status: <label class="text-success">Signed</label></label></div> -->
+                                <!-- <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div> -->
                               </div>
                             </div>
                           </div>
@@ -257,17 +257,18 @@
                               <div><span>APPROVED BY:</span></div>
                               <div><label style="margin-bottom: unset;">Dr. Ferdinand C. Somido</label></div>
                               <div><span>Executive School director</span></div>
-                              <div><label style="margin-bottom: unset;">Status: <label class="text-success">Signed</label></label></div>
-                              <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div>
+                              <!-- <div><label style="margin-bottom: unset;">Status: <label class="text-success">Signed</label></label></div> -->
+                              <!-- <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div> -->
                             </div>
                           </div>
                         </div>
+                        <br><br><br><br>
                         <div class="col-xs-12">
                           <div class="form-group" style="max-width: 800px;margin: auto;">
-                            <div style="background-color: #c9c9c933;border: 2px solid black;padding: 5px;border-top: unset;">
+                            <div style="background-color: #c9c9c933;border: 2px solid black;padding: 5px;">
                               <div><span>Once everything is signed, provide a copy of accomplishment form to the following:</span></div>
                               <div style="text-align: center;margin-top: 7px;">
-                                <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div>
+                                <!-- <div><button class="btn btn-sm" style="background-color: #e1ee95;"><b>Send</b></button></div> -->
                                 <div><label style="margin-bottom: unset;">Audiovisual Facilities Office</label></div>
                                 <div><label style="margin-bottom: unset;">Audiovisual (MU)</label></div>
                               </div>

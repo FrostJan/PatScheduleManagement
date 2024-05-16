@@ -8,28 +8,11 @@
 ?>
 <!DOCTYPE html>
 <html>
-<head><?php include 'head.php'; ?></head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-
-<?php include 'navbar.php'; ?>
-<?php include 'profile.php'; ?>
-<?php include 'sidebar.php'; ?>
-
-
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="overflow-y: scroll;height: 100vh;padding-bottom: 50px;">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        LOG
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">LOG</li>
-      </ol>
-    </section>
+  <div class="content-wrapper" style="padding-bottom: 50px;">
 
     <?php if (isset($_GET['id'])) { ?>
 
@@ -43,76 +26,69 @@
           <div class="col-xs-12">
             <div class="box">
               <div class="box-header with-border">
-                <a href="details_print.php?id=<?php echo $_GET['id'] ?>" class="btn btn-success btn-sm btn-flat" target="_blank">Print</a>
-                <h3>Document Details</h3>
+                <h2 style="text-align: center;">Document Details</h2>
               </div>
               <div class="box-body">
                 <form class="form-horizontal" method="POST" action="../controller/facility_formController.php" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-lg-4 col-md-12">
-                      <div class="form-group">
-                        <label for="project_list_id" class="col-sm-4">Department: </label>
-                        <div class="col-sm-8">
-                          <input class="form-control" value="<?php echo $row['department'] ?>" readonly>
+                      <div style="display: flex;width: 100%;justify-content: space-between;">
+                        <div class="form-group">
+                          <strong for="project_list_id" class="col-sm-4">Department: </strong>
+                            <?php echo $row['department'] ?>
+                        </div>
+                        <div class="form-group">
+                          <strong for="project_list_id" class="col-sm-4">Activity/Purpose: </strong>
+                            <?php echo $row['activityorpurpose'] ?>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label for="project_list_id" class="col-sm-4">Activity/Purpose: </label>
-                        <div class="col-sm-8">
-                          <input class="form-control" value="<?php echo $row['activityorpurpose'] ?>" readonly>
+                      <br>
+                      <div style="display: flex;width: 100%;justify-content: space-between;">
+                        <div class="form-group">
+                          <strong for="project_list_id" class="col-sm-4">Division: </strong>
+                            <?php echo $row['division'] ?>
+                        </div>
+                        <div class="form-group">
+                          <strong for="project_list_id" class="col-sm-4">Number of attendees: </strong>
+                            <?php echo $row['numberofattendees'] ?>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label for="project_list_id" class="col-sm-4">Division: </label>
-                        <div class="col-sm-8">
-                          <input class="form-control" value="<?php echo $row['division'] ?>" readonly>
+
+                      <br>
+                      <div style="display: flex;width: 100%;justify-content: space-between;">
+                        <div class="form-group">
+                          <strong for="project_list_id" class="col-sm-4">Date filled: </strong>
+                            <?php echo $row['datefilled'] ?>
+                        </div>
+                        <div class="form-group">
+                          <strong for="project_list_id" class="col-sm-4">Time Needed: </strong>
+                              <?php echo $row['timeneeded'] ?>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label for="project_list_id" class="col-sm-4">Number of attendees: </label>
-                        <div class="col-sm-8">
-                          <input class="form-control" value="<?php echo $row['numberofattendees'] ?>" readonly>
+
+                      <br>
+                      <div style="display: flex;width: 100%;justify-content: space-between;">
+                        <div class="form-group">
+                          <strong for="project_list_id" class="col-sm-4">Date Needed: </strong>
+                            <?php echo $row['dateneeded'] ?>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="project_list_id" class="col-sm-4">Date filled: </label>
-                        <div class="col-sm-8">
-                          <input type="date" class="form-control" value="<?php echo $row['datefilled'] ?>" readonly>
+                        <div class="form-group">
+                          <strong for="project_list_id" class="col-sm-4">Person in-charge: </strong>
+                            <?php echo $row['personincharge'] ?>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="project_list_id" class="col-sm-4">Time Needed: </label>
-                        <div class="col-sm-8">
-                          <div style="display: flex;">
-                            <input class="form-control" value="<?php echo $row['timeneeded'] ?>" readonly>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="project_list_id" class="col-sm-4">Date Needed: </label>
-                        <div class="col-sm-8">
-                          <input type="date" class="form-control" value="<?php echo $row['dateneeded'] ?>" readonly>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="project_list_id" class="col-sm-4">Person in-charge: </label>
-                        <div class="col-sm-8">
-                          <input class="form-control" value="<?php echo $row['personincharge'] ?>" readonly>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="project_list_id" class="col-sm-4">Contact number: </label>
-                        <div class="col-sm-8">
-                          <input class="form-control" value="<?php echo $row['contactnumber'] ?>" readonly>
+                        <div class="form-group">
+                          <strong for="project_list_id" class="col-sm-4">Contact number: </strong>
+                            <?php echo $row['contactnumber'] ?>
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-8 col-md-12" style="padding-left:100px;">
+                    <br>
+                    <div class="col-lg-8 col-md-12">
                       <div class="row">
                         <h4 style="font-weight: bold;">SERVICES TO BE PROVIDED:</h4>
                       </div>
 
-                      <div class="row">
+                      <div style="display: flex;width: 100%;justify-content: space-between;">
                         <div class="col-xs-4">
                           <div class="form-group">
                               <div style="display: flex;">
@@ -139,7 +115,7 @@
                       <div class="row">
                         <h4 style="font-weight: bold;">CLASSIFICATION OF ACTIVITY:</h4>
                       </div>
-                      <div class="row">
+                      <div style="display: flex;width: 100%;justify-content: space-between;">
                         <div class="col-xs-4">
                           <div class="form-group" style="margin-bottom: unset;">
                               <div style="display: flex;">
@@ -176,7 +152,7 @@
                           </div>
                         </div>
                       </div>
-
+                      <br>
                       <div class="row">
                         <div class="col-xs-3">
                           <div class="form-group">
@@ -219,7 +195,7 @@
                             </div>
                           </div>
                         </div>
-                        <br><br><br><br>
+                        <br>
                         <div class="col-xs-12">
                           <div class="form-group" style="max-width: 800px;margin: auto;">
                             <div style="background-color: #c9c9c933;border: 2px solid black;padding: 5px;">
@@ -234,9 +210,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-xs-12" style="margin-top: 20px;">
-                      <embed src="../file/<?php echo $row['file'] ?>" type="application/pdf" width="100%" height="600px" />
-                    </div>
                   </div>
                 </form>
               </div>
@@ -248,54 +221,12 @@
 
   </div>
 
-
 </div>
-<!-- ./wrapper -->
 
-<?php include 'footer.php'; ?>
-<?php include 'modal/deleteModal.php'; ?>
-<?php include 'modal/dashboardModal.php'; ?>
-<!-- Active Script -->
 <script>
-
-    $(document).on('click', '#admin_profile', function(e){
-    e.preventDefault();
-    $('#profile').modal('show');
-    var user_id = $(this).data('user_id');
-    var firstname = $(this).data('firstname');
-    var email = $(this).data('email');
-    var password = $(this).data('password');
-
-    $('#user_id').val(user_id)
-    $('#firstname').val(firstname)
-    $('#email').val(email)
-    $('#password').val(password)
-
-  });
-$(function(){
-  /** add active class and stay opened when selected */
-  var url = window.location;
-  
-  // for sidebar menu entirely but not cover treeview
-  $('ul.sidebar-menu a').filter(function() {
-      return this.href == url;
-  }).parent().addClass('active');
-
-  // for treeview
-  $('ul.treeview-menu a').filter(function() {
-      return this.href == url;
-  }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
-
-});
+  window.print()
 </script>
-<!-- Data Table Initialize -->
-<script>
-  $(function () {
-    $('#example1').DataTable({
-      responsive: true
-    })
-  })
-</script>
+
 
 </body>
 </html>
